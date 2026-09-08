@@ -1,0 +1,63 @@
+running = True
+guess_count = 0
+
+def is_valid_password(passcode): #This is simply checking if the passcode is valid.
+    if len(passcode) == 4:
+        return True
+    else:
+        return False #Sends something back and ends the method.
+
+def count_correct_position(secret_password,passcode):
+    correct_position = 0
+    for i in range(len(secret_password)): #This is going to loop through every digit in the passcode
+        if passcode[i] == secret_password[i]: #This sees if the position and number is correct.
+            correct_position += 1
+    print("Correct position: ",correct_position)
+    return correct_position #Make sure return is outside the loop, and it does not reset every time
+
+def count_wrong_position(secret_password,passcode):
+    wrong_position = 0
+    for i in range(len(secret_password)):
+
+        if passcode[i] in secret_password and passcode[i] != secret_password[i]: #This logic is saying. "If the digit EXISTS somewhere in the secret AND it's not in the correct position. Then count it as a wrong position. "secret_password" represents the password and "secret_password[i] checks each position
+
+            wrong_position += 1
+    print(f"Wrong position: {wrong_position}")
+    if not secret_passcode == passcode:
+        print()
+    else:
+        print("--- Game Over ---", )
+        print(f"Total guesses: {guess_count}")
+        print(f"Performance: {performance(guess_count)}")  # Use "()" to call a function. Use "." to go into a object
+    return wrong_position #Make sure to put the return statement outside the loop so it won't stop checking after the first dgit.
+
+def performance(guess_count):
+    if guess_count <= 3:
+        performance = "Excellent"
+    elif guess_count <= 6:
+        performance = "Good"
+    else:
+        performance = "Needs Practice"
+    return performance
+
+
+secret_passcode = input("Enter secret passcode: ")
+
+
+while running:
+
+    if is_valid_password(secret_passcode): #This runs the check in the method to see if secret passcode is a valid passcode
+
+        passcode = input("Enter your guess: ")
+
+        if not is_valid_password(secret_passcode):
+            print("Invalid Guess")
+            continue
+
+        guess_count += 1
+
+        correct = count_correct_position(secret_passcode, passcode) #THis runs the count_correct_position function
+        wrong = count_wrong_position(secret_passcode, passcode) #This sends the inputs up to the function to see if it is in wrong position .
+
+        if secret_passcode == passcode:
+            running = False
