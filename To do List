@@ -1,0 +1,132 @@
+import time
+
+running = True
+
+#This is the constructor function. It is a class that creates a funciton
+# It runs automatically when we create a To do object
+
+class Todo:
+    #This is an object below. Just a thing that represents data and what it does
+
+    def __init__(self,title,due_date=None, time = None): #__init__ prepares the object by giving it starting values
+
+        self.title = title #Save the title inside the object
+        self.due_date = due_date #(Stores the date) "None" = nothing yet. None is a placeholder. So when the user sets a date. It will replace none with whatever they type
+        self.time = time #(Stores the time)
+        self.done = False  #Checks to see if a task is done or not.
+
+
+    def set_done(self):
+        self.done = True
+
+    def is_done(self):
+        return self.done
+
+    def set_date_time(self,date,time): #Sets or updates the due date and time for the item.Passing None for both will remove the due date/time.
+        self.due_date = date
+        self.time = time
+
+    def has_due_date(self):
+        #This checks if there is a due date or not. It will return back True or False
+        return self.due_date is not None and self.time is not None
+
+
+    def get_todo(self):
+        if self.has_due_date():
+            return (f"{self.title} Due: {self.due_date} at {self.time}")
+        return self.title
+
+
+todo_list = []
+
+while running:
+    print("1 - Add a To-do list item")
+    print("2 - Set a To-do list item as done ")
+    print("3 - Set or change the due date time of a To-do item")
+    print("4 - Remove a To-do list item due date and time")
+    print("5 - Print To-do list")
+    print("6 - Exit")
+
+    user_choice = (input("> "))
+
+    match user_choice:
+        case "1":
+            case_choice = input("\nDoes your To-do item have a due date and time? (y/n): ")
+            if case_choice == "y":
+
+                title = input("What is the title: ")
+                due_date = input("Enter the due date (MM/DD/YYYY): ")
+                due_time = input("Enter the due time (HH:MM AM/PM): ")
+
+                new_task = Todo(title) #Create a new object/task using the title
+                new_task.due_date = due_date  #store the date into the new task
+                new_task.time = due_time #stores the time into the new task
+
+                todo_list.append(new_task) #Adds the new task to the list.
+
+                print("Adding your To-do list item...")
+                print()
+            else:
+                else_title = input("What is the title: ")
+                print()
+
+                #Makes an object with only a title
+                new_task = Todo(else_title)
+
+                #Adds it to the list
+                todo_list.append(new_task)
+
+        case "2":
+            print("\nChoose a To-do item to mark as done:")
+            for index, task in enumerate(todo_list):
+                print(f"{index} {task.title}")
+            choice = int(input("> ")) #Use this when selecting list numbers
+
+            todo_list[choice].set_done() #This Uses the class method to set it done
+            print()
+
+        case "3":
+            print("\nChoose a To-do item to set or change due date time:")
+
+            # enumerate gives me index numbers (0,1,2..)
+            for index, task in enumerate(todo_list):
+                print(f"{index} {task.title}") #Prints number and title
+            choice = int(input("> "))
+
+            new_date = input("Enter the due date (MM/DD/YYYY): ")  # Ask the user for a new date
+            new_time = input("Enter the due time (HH:MM AM/PM): ")
+            print()
+
+            # Updated the  task the user choose
+            todo_list[choice].set_date_time(new_date, new_time)#Changes the old date to the new date
+
+        case "4":
+            print("\n Choose a To-do item to remove due date and time:")
+            #Only show items that have due date/time
+            for index, task in enumerate(todo_list):
+                if task.has_due_date():
+                    print(f"{index} {task.title}")
+            choice = int(input("> "))
+            print()
+
+            #Removes the date and time; sets them to none
+            todo_list[choice].set_date_time(None,None)
+
+        case "5":
+            print("\nThis is your To-do list: ")
+
+            for task in todo_list: #Looping through all the task in the list.
+                # Always print the title
+
+                if not task.is_done(): #Skips the completed task
+
+                    print(f"- {task.title}")
+
+                    # Only prints if there is a date/time
+                    if task.due_date is not None and task.time is not None:
+                        print(f"      Due Date : {task.due_date} at {task.time}")
+            print()
+
+        case "6":
+            print("\n[Terminating program...]")
+            running = False
