@@ -1,0 +1,94 @@
+#Self means this specific object; This is another way of saying "me"
+running = True
+class Book: #This represents the individual book; Represents ONE book
+    def __init__(self, title): #Self.burrow = False means YOU have not burroweed it
+        self.title = title
+        self.is_burrowed = False #This means the book is avaliable
+#-------------------------------------------------
+    def borrow(self):
+        if self.is_burrowed: #if self.is_burrowed is True
+            print("This book is burrowed already.")
+        else: #If self,is_burrowed is False, then turn the Boolean value to ture
+            self.is_burrowed = True #Mark this book as burrowed
+            print(f'You borrowed "{self.title}".')
+            print()
+#----------------------------------------------------
+    def return_book(self):
+        if self.is_burrowed: #When self.is_burrowed is true. Set it back to false
+            self.is_burrowed = False
+            print(f'You returned "{self.title}".')
+        else:
+            print(f'Error : "{self.title}" was not burrowed.')
+#---------------------------------------------------
+    def display_info(self, index):
+        if self.is_burrowed:
+            print(f"{index} -  {self.title} (Burrowed)")
+        else:
+            print(f"{index} -  {self.title} (Available)")
+#---------------------------------------------------
+#-------------------------------------------------
+class Library: #Let book do all the printing
+    def __init__(self):
+        self.books = [Book("Python Basics"), Book("Intro to AI")] #This line is creating objects called "Python Basics" & "Intro to AI"
+#---------------------------------------------------
+    def show_books(self):
+        print("\nBooks in Library:")
+        for index, book in enumerate(self.books): #This is saying go through the list and give me the NUMBER and the BOOK
+            book.display_info(index) #Right here you are calling the books to print themselves and the number
+#---------------------------------------------------
+    def borrow_book(self):
+        print("\nBooks in Library:")
+        for index, book in enumerate(self.books): #Getting the book AND the index of the book
+            if not book.is_burrowed: #If the book is NOT burrowed
+                book.display_info(index) #This is going to display all the available books
+        try: #This is saying try this, but if it does not work then don't crash
+            index = int(input("Select a book to borrow: "))
+            book = self.books[index] #Get the Book object at that position
+            book.borrow()
+        except IndexError:
+            print(f'That is not a valid choice."')
+#---------------------------------------------------
+    def return_book(self):
+        self.show_books()
+        try: #This is saying try this, but if it does not work then dont crash
+            index = int(input("Select a book to return: "))
+            book = self.books[index] #Get the Book object at that position
+            book.return_book()
+        except IndexError:
+            print(f'"{self.show_books}" is not a valid choice."')
+#---------------------------------------------------
+    def add_book(self):
+        title = input("Enter the title of the new book: ")
+        self.books.append(Book(title)) #This is going to add the new book object into the list
+        print(f'"{title}" has been added to the library!')
+
+library = Library() #This is me making a library object
+
+
+while running:
+    print("[Owl Library]")
+    print("1. View Books")
+    print("2. Borrow Book")
+    print("3  Return Book")
+    print("4. Add Book")
+    print("5. Exit")
+
+    choice = int(input("> "))
+
+    match choice:
+        case 1:
+            library.show_books()
+            print()
+
+        case 2:
+            library.borrow_book()
+
+        case 3:
+            library.return_book()
+            print()
+        case 4:
+            library.add_book()
+            print()
+        case 5:
+            print("Exiting program... Goodbye!")
+            running = False
