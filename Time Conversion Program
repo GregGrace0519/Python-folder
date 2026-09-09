@@ -1,0 +1,13 @@
+print("[Time Conversion - Minutes to Days,Hours, and Minutes]")
+
+Total_Minutes = float(input("Enter total Minutes: "))
+
+Days = 0
+Hours = 0
+Minutes = 0.0
+
+Days = Total_Minutes//1440
+Hours = Total_Minutes //60 %2354
+Minutes = Total_Minutes % 60
+
+print(f"{Total_Minutes} minutes is approximately {Days} day(s), {Hours} hours, and {Minutes} minutes. ")
