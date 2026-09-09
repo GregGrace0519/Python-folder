@@ -1,0 +1,91 @@
+
+username = "jdoe01"
+password = "strongPassword"
+sign_in = False
+running = True
+print("[Owl World]")
+while running :
+
+    if sign_in:
+        print(f"Welcome {username}!")
+        print("Choose an option:")
+        print("1. Buy Tickets")
+        print("2. Sign Out")
+        print("3. Exit")
+    else:
+        print("Choose an option:")
+        print("1. Buy Tickets")
+        print("2. My Account")
+        print("3. Exit")
+
+    option = int(input("> "))
+
+    if option == 1:
+        if sign_in: #If you are signed in, these are the prices. Like Discounted price
+            adult_prices = 22.00
+            children_prices = 18.00
+
+        else: #If you are NOT signed in, theses are the prices.
+            adult_prices = 28.00
+            children_prices = 24.00
+
+        print("\nTicket Prices:")
+        print(f"Adult: ${adult_prices:.2f}, Children: ${children_prices:.2f}")
+
+        adult_count = int(input("\nHow many Adult tickets?: "))
+        children_count = int(input("How many Children tickets?: "))
+
+        total_children = (children_count * children_prices)
+        total_adult = float(adult_count * adult_prices)
+
+        print("\nProcessing...")
+
+        total = float(total_children + total_adult)
+        print(f"\n{adult_count}x Adult Tickets ---- ${total_adult:.2f}")
+        print(f"{children_count}x Children Tickets ---- ${total_children:.2f}")
+        print(f"Total: ${total:.2f}")
+        print()
+
+
+    if option == 2:
+        if not sign_in:
+            print("\nChoose an option:")
+            print("1. Sign-in")
+            print("2. Register")
+
+            account_choice = int(input("> "))
+
+            match account_choice:
+                case 1:
+                    entered_username = input("Username: ")
+                    entered_password = input("Password: ")
+
+                    if entered_username == username and entered_password == password: #if the passwords match.
+                        print("Login Successful!")
+                        print()
+                        sign_in = True
+
+                    else:
+                        print("Incorrect Username/Password")
+                        print()
+                case 2:
+                    new_username = input("Username: ")
+                    new_password = input("Password: ")
+                    username = new_username
+                    password = new_password
+                    print("Registration Successful!")
+                    print()
+        else:
+            sign_in = False
+            print()
+            print("You have signed out")
+            running = False
+
+
+
+
+
+    if option == 3:
+        print("Program Terminated")
+        running = False
+
