@@ -1,0 +1,54 @@
+import random
+
+row = int(input("Enter the number of rows: "))
+column = int(input("Enter the number of columns: "))
+
+theatre = []
+count = 0
+
+for i in range(row): #For each row
+    theatre.append([]) #start empty row
+    for j in range(column): # for each seat in this row
+        num = random.random() # Get random number
+
+        if num >= 0.7: # Checks if Reserved
+            theatre[i].append("R")
+
+        else:
+            theatre[i].append("A")
+            count += 1 #Counts how many seats are in A
+
+print(f"Number of available seats {count}")
+
+# Function to print seating chart (avoids repeating code)
+def print_chart():
+    for r in theatre: #Starts creating rows in the output
+        print(" ".join(r)) #This removes brackets and commas
+
+print_chart() #Print chart first time
+
+
+while count > 0:
+
+    user_row = int(input(f"\nEnter the row number (0 to {row-1}): "))
+    user_column = int(input(f"Enter the column number (0 to {column-1}): "))
+    seats = (user_row,user_column) #Stores seat location
+
+    if theatre[user_row][user_column] == "B":
+        print_chart() #Print chart again
+        print("This seat has already been booked.")
+
+    elif theatre[user_row][user_column] == "R":
+        print_chart() #Print chart again
+        print("This seat is already reserved.")
+
+    else:
+        theatre[user_row][user_column] = "B"
+        count -= 1
+        print("Seat booked successfully!")
+
+        print_chart() #Print updated seating chart
+
+
+print("All available seats have been booked!")
+print_chart() #Final chart print
