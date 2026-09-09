@@ -1,0 +1,72 @@
+rows = int(input("Enter rows for Matrix A: "))
+columns = int(input("Enter columns for Matrix A: "))
+
+rows_1 = int(input("\nEnter rows for Matrix B: "))
+columns_1 = int(input("Enter columns for Matrix B: "))
+
+matrixA = [] #This will store Matrix A as a list of rows
+matrixB = [] #Store Matrix B as a list of rows
+result = []
+
+index = 0 #Keeps track of postioin inside the numbers of list
+if columns == rows_1: #Checks if multiplicaiton is possible
+    values = input("\nEnter Matrix A values (comma separated): ")
+    numbers = values.split(",")  # Turns "1,2,3,4,5,6" into ['1','2','3','4','5','6']
+
+    values_1 = input("\nEnter Matrix B values (comma separated): ")
+    numbers_1 = values_1.split(",") #Split into rows, Matrix B numbers
+
+
+
+    for r in range(rows): #Outer loop → makes each row
+        row = [] #Create a NEW empty row
+        for c in range(columns): #Inner loop. Fills the row with numbers
+            row.append(int(numbers[index])) #Take number from list and add it into row
+            index += 1 #Moves to next number
+        matrixA.append(row) #After row is filled. Add it to matrixA
+
+    print("\nMatrix A:")
+    for r in matrixA:
+        for value in r:
+            print(value, end=" ")
+        print()
+
+    index = 0 #Put before the matrix loop, so it does not reset
+    for r in range (rows_1):
+        row=[]
+        for c in range(columns_1):
+            row.append(int(numbers_1[index]))
+            index += 1
+        matrixB.append(row)
+
+    print("\nMatrix B:")
+    for r in matrixB:
+        for value in r:
+            print(value, end=" ")
+        print()
+
+    for r in range (rows):
+
+        row = []
+
+        for c in range(columns_1):
+
+            total = 0
+
+            for k in range(columns):
+                total += matrixA[r][k] * matrixB[k][c]
+
+            row.append(total)
+
+        result.append(row)
+
+    print("\nResult Matrix:")
+
+    for r in result:
+        for value in r:
+            print(value, end=" ")
+        print()
+else:
+    print("\nMatrix multiplication is not possibe.")
+    print("Number of columns in Matrix A must equal number of rows in Matrix B")
+
