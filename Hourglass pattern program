@@ -1,0 +1,33 @@
+
+user_input = int(input("Enter an odd number for the size of the hourglass: "))
+
+if user_input % 2 == 0:
+    user_input = user_input + 1
+
+num = 0
+middle_row = user_input // 2
+
+for row in range(middle_row+1):
+    for space in range(row):
+        print(" ", end="")
+
+    numbers_in_row = user_input -2*row
+    for n in range(numbers_in_row):
+        print(num%10, end="")
+        num = num + 1
+
+    print()
+
+for row in range(middle_row + 1, user_input):
+    bottom_row = row - middle_row
+    spaces = middle_row - bottom_row
+    numbers_in_row = 2*bottom_row + 1
+
+    for space in range(spaces):
+        print(" ", end="")
+
+    for n in range(numbers_in_row):
+        print(num%10, end="")
+        num += 1
+
+    print()
