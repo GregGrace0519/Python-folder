@@ -1,0 +1,13 @@
+def convert_to_pascal_case(text):
+    pascal_case = ""  # To make sure nothing is hard coded string wise
+    for word in text.split(): #Loops through split words
+        pascal_case += format_word(word) #Capitalize each word and then takes away the spaces then adds it up together
+    return pascal_case
+
+def format_word(word): #Capitalize the beginnging of each word
+    word = word.capitalize()
+    return word
+
+user_input = input("Enter a string: ")
+pascal = convert_to_pascal_case(user_input)
+print(f"Pascal Case: {pascal}")
