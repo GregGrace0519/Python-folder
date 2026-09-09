@@ -1,0 +1,36 @@
+running = True
+processed_letters = "" # To make sure i don't quiz the user again over the same letter
+
+print("[Welcome to the Letter Frequency Quix")
+user_input = input("Enter a sentence (lowercase letters only): ")
+
+for i in range(len(user_input)): # "i" counts positions
+    letter = user_input[i] #Take one letter from the sentence and store it in that variable "i"
+
+    if letter in processed_letters: # If the letter is apart of the letters i already processed, i  move on
+        continue
+
+    count = 0 # To count how many times the letter appear. "c" stands for count
+    for c in range(len(user_input)):
+        if user_input[c] == letter:
+            count += 1
+
+    guess_correct = False # All of this is going to happen while it is false
+    while not guess_correct:
+        guess = int(input(f"Guess the frequency of letter '{letter}': "))
+
+        if guess > count: #Checking to see if letter is too high or too low
+            print("Too high!")
+            guess_correct = False
+
+        elif guess < count:
+            print("Too low!")
+            guess_correct = False
+
+        else:
+            print("Correct!")
+            guess_correct = True
+
+        processed_letters += letter
+
+print("Congratulations! You completed the quiz.")
