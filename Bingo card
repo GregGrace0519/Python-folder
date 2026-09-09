@@ -1,0 +1,177 @@
+valid = True
+printed_reasons = False
+User_input_1 = input("Enter Bingo row 1 (3 values, comma-seperated): ")
+User_input_2 = input("Enter Bingo row 2 (3 values, comma-seperated): ")
+User_input_3 = input("Enter Bingo row 3 (3 values, comma-seperated): ")
+
+User_input_1 = User_input_1 +","
+User_input_2 = User_input_2 +","
+User_input_3 = User_input_3 +","
+
+count = 0  #Which position i am in
+current_number = ""  #The digits i am building
+
+#Row 1
+
+for character in User_input_1:
+    if character != ",":
+        current_number = current_number + character
+    else:
+        number = int(current_number)
+        if count == 0: #All my storage locations
+            A11 = number
+        elif count == 1:
+            A12 = number
+        elif count == 2:
+            A13 = number
+        current_number = ""
+        count += 1
+
+#Row 2
+for character in User_input_2:
+    if character != ",":
+        current_number = current_number + character
+    else:
+        number = int(current_number)
+        if count == 3:
+            A21 = number
+        elif count == 4:
+            A22 = number
+        elif count == 5:
+            A23 = number
+        current_number = ""
+        count += 1
+
+#Row 3
+for character in User_input_3:
+    if character != ",":
+        current_number = current_number + character
+    else:
+        number = int(current_number)
+        if count == 6:
+            A31 = number
+        elif count == 7:
+            A32 = number
+        elif count == 8:
+            A33 = number
+        current_number = ""
+        count += 1
+
+#Print Statements
+print("\nB  I  N")
+print(A11, A12, A13)
+print(A21, A22, A23)
+print(A31, A32, A33)
+print()
+
+if A22 != 0:
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print("- FREE space error at (row 2, col 2) must be 0")
+
+#Checking column B
+if not (1 <= A11 <=15):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print(f"- Range error at row 1, column B: {A11} (must be 1-15)")
+
+if not (1 <= A21 <=15):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print(f"- Range error at row 2, column B:{A21} (must be 1-15) ")
+
+if not (1 <= A31 <=15):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print(f"- Range error at row 3, column B: {A31} (must be 1-15)")
+
+#Checking Column I
+if not (16 <= A12 <=30):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print(f"- Range error at row 1, column I: {A12} (must be 16-30)")
+
+if A22 != 0 and not(16 <= A22 <=30):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+
+if not(16 <= A32 <=30):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print(f"- ange error at row 3, column I: {A32} (must be 16-30)")
+
+#Checking Column N
+if not(31 <= A13 <=45):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print(f"- Range error at row 1, column N: {A13} (must be 31-45)")
+
+if not(31 <= A23 <=45):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print(f"- Range error at row 2, column N: {A23} (must be 31-45)")
+
+if not(31 <= A33 <=45):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print(f"- Range error at row 3, column N: {A33} (must be 31-45)")
+
+
+if (A11 !=0 and A11 == A12) or (A11 !=0 and A11 == A13) or (A12 !=0 and A12 == A13):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print("- Duplicate row 1")
+
+if (A21 != 0 and A21 == A22) or (A21 != 0 and A21 == A23) or (A21 != 0 and A22 == A23):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print("- Duplicate row 2")
+
+if (A31 != 0 and A31 == A32) or (A31 != 0 and A31 == A33) or (A31 != 0 and A32 == A33):
+    if not printed_reasons:
+        print("INVALID BINGO CARD")
+        print("Reasons:")
+        printed_reasons = True
+    valid = False
+    print("- Duplicate row 3")
+
+if valid:
+    print("VALID BINGO CARD")
+
+
